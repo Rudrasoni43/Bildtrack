@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BuildTrack | Construction Project Management</title>
+  <!-- Beginner-friendly project: HTML structure, external CSS (style.css) and plain JavaScript (script.js). -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div>
+      <h1><svg width="30" height="30" viewBox="0 0 40 40" role="img" aria-label="BuildTrack logo" style="vertical-align:middle"><rect x="2" y="2" width="36" height="36" rx="7" fill="#f4b942"/><path d="M8 29V17l7-5 7 5v12M22 29V10l5-3 5 3v19M5 29h30" fill="none" stroke="#142b4a" stroke-width="2.5" stroke-linejoin="round"/></svg> BuildTrack</h1>
+      <p>Construction Project Management Portal</p>
+    </div>
+    <div><strong id="todayLabel">Project dashboard</strong></div>
+  </header>
+
+  <nav aria-label="Main navigation">
+    <a href="#dashboard">Dashboard</a>
+    <a href="#tasks">Work phases & tasks</a>
+    <a href="#add-task">Assign a task</a>
+    <a href="#materials">Materials</a>
+    <a href="#team">Team records</a>
+  </nav>
+
+  <main>
+    <section class="welcome" id="dashboard">
+      <h2>Project overview</h2>
+      <p>Monitor construction work, assign tasks, track deadlines, check material requirements and identify delayed work. This demo stores changes in your browser only.</p>
+    </section>
+
+    <section class="stats" aria-label="Project statistics">
+      <article class="stat"><span>Total tasks</span><strong id="totalTasks">0</strong></article>
+      <article class="stat"><span>Completed</span><strong id="completedTasks">0</strong></article>
+      <article class="stat"><span>In progress</span><strong id="activeTasks">0</strong></article>
+      <article class="stat"><span>Delayed</span><strong id="delayedTasks">0</strong></article>
+    </section>
+
+    <div class="layout">
+      <section class="panel" id="tasks">
+        <h2 class="section-title">Work phases & task tracker</h2>
+        <p class="note">Change a task's status or progress using the controls in the table. A task is flagged as delayed if its deadline has passed and it is not completed.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Task / phase</th><th>Assigned to</th><th>Deadline</th><th>Status</th><th>Progress</th><th>Action</th></tr></thead>
+            <tbody id="taskTable"></tbody>
+          </table>
+        </div>
+        <div class="two-buttons">
+          <button class="secondary" type="button" onclick="resetDemo()">Reset demo data</button>
+          <button type="button" onclick="exportTasks()">Export tasks as CSV</button>
+        </div>
+      </section>
+
+      <section class="panel" id="add-task">
+        <h2 class="section-title">Assign a new task</h2>
+        <form id="taskForm">
+          <label for="taskName">Task / work phase</label>
+          <input id="taskName" name="taskName" required placeholder="e.g. Electrical wiring">
+          <label for="assignee">Worker / team</label>
+          <input id="assignee" name="assignee" required placeholder="e.g. Electrical Team">
+          <label for="deadline">Deadline</label>
+          <input id="deadline" name="deadline" type="date" required>
+          <label for="status">Current status</label>
+          <select id="status" name="status">
+            <option>Not started</option><option>In progress</option><option>Completed</option>
+          </select>
+          <label for="progress">Progress: <span id="progressValue">0</span>%</label>
+          <input id="progress" name="progress" type="range" min="0" max="100" value="0">
+          <button type="submit">Add task</button>
+        </form>
+      </section>
+
+      <section class="panel" id="materials">
+        <h2 class="section-title">Material requirements</h2>
+        <p class="note">Example material checklist for a small building project. Edit the names and quantities in the HTML to customize it.</p>
+        <ul class="material-list">
+          <li><strong>Cement:</strong> 120 bags <span class="pill pending">Order check</span></li>
+          <li><strong>Steel rods:</strong> 850 kg <span class="pill on-track">Available</span></li>
+          <li><strong>Bricks:</strong> 5,000 units <span class="pill pending">Low stock</span></li>
+          <li><strong>Sand:</strong> 6 cubic metres <span class="pill on-track">Available</span></li>
+        </ul>
+        <label for="materialNote">Add a material reminder</label>
+        <input id="materialNote" placeholder="e.g. Order 20 more cement bags">
+        <button type="button" onclick="addMaterialNote()">Save reminder</button>
+        <ul id="materialNotes" class="material-list"></ul>
+      </section>
+
+      <section class="panel" id="team">
+        <h2 class="section-title">Worker / team records</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Team member</th><th>Role</th><th>Contact / ID</th></tr></thead>
+            <tbody>
+              <tr><td>Arjun Kumar</td><td>Site Supervisor</td><td>EMP-101</td></tr>
+              <tr><td>Priya Singh</td><td>Civil Engineer</td><td>EMP-102</td></tr>
+              <tr><td>Ravi Das</td><td>Material Manager</td><td>EMP-103</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">Sample records only. Replace these fictional details with your own demonstration data.</p>
+      </section>
+    </div>
+    <section class="panel" style="margin-top:18px" id="audio-demo">
+      <h2 class="section-title">Site safety audio reminder</h2>
+      <p class="note">Play this daily safety announcement at the start of each shift. The audio file is <code>safety-reminder.mp3</code>.</p>
+      <details>
+        <summary>Read the announcement text</summary>
+        <p class="note">Attention all site workers. This is your daily safety reminder. Always wear your hard hat, safety boots, high-visibility vest and gloves on site. Use a harness when working at height. Keep walkways clear of tools and materials. Never stand under a suspended load. Report any hazard, injury or near miss to your site supervisor immediately. Check your deadlines, record material usage, and report delays early. Work safe, and go home safe. Thank you.</p>
+      </details>
+      <audio controls aria-label="Site safety reminder audio">
+        <source src="safety-reminder.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </section>
+
+    <section class="panel" style="margin-top:18px">
+      <h2 class="section-title">Project status announcement</h2>
+      <marquee behavior="scroll" direction="left" scrollamount="4">Safety first • Check deadlines daily • Record material usage • Report delays early</marquee>
+      <p class="note">The <code>marquee</code> element is included because it appears in your HTML syllabus topics; it is obsolete in modern HTML, so CSS animation would be better in a real project.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>BuildTrack student project • Made with HTML, internal CSS and vanilla JavaScript</p>
+    <p><a href="#dashboard">Back to top</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
